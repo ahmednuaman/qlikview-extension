@@ -15,12 +15,16 @@
   }
 
   Qva.LoadCSS = (url) => {
-    const el = window.document.createElement('link')
+    url = QvaURL(url)
 
-    el.rel = 'stylesheet'
-    el.href = QvaURL(url)
+    if (url !== '/asset/css/styles.css') {
+      const el = window.document.createElement('link')
 
-    head.appendChild(el)
+      el.rel = 'stylesheet'
+      el.href = url
+
+      head.appendChild(el)
+    }
   }
 
   Qva.LoadScript = (url) => {

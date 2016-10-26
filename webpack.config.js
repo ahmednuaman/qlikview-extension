@@ -17,7 +17,7 @@ let config = {
   cache: true,
   entry: {
     'script.js': webpackDev('./js/app.js'),
-    'styles.css': './scss/app.scss'
+    'asset/css/styles.css': './scss/app.scss'
   },
   output: {
     filename: '[name]',

@@ -1,3 +1,7 @@
 Qva.AddExtension('Org/Ext', function () {
-  Qva.LoadCSS(Qva.Remote + (Qva.Remote.indexOf('?') >= 0 ? '&' : '?') + 'public=only&name=Extensions/Ext/styles.css')
+  const urlPrefix = Qva.Remote + (Qva.Remote.indexOf('?') >= 0 ? '&' : '?') + 'public=only&name='
+
+  Qva.LoadCSS(`${urlPrefix}Extensions/Ext/asset/css/styles.css`)
+
+  this.Element.innerHTML = 'Hello!'
 }, true)

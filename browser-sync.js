@@ -20,17 +20,6 @@ require('browser-sync')
     server: {
       baseDir: serverPath,
       middleware: [
-        (req, res, next) => {
-          const requestURL = url.parse(req.url)
-          const pathname = requestURL.pathname
-          const exists = fs.existsSync(path.join(serverPath, pathname))
-
-          if (!exists) {
-            req.url = '/index.html'
-          }
-
-          return next()
-        },
         webpackDevMiddleware(bundler, {
           publicPath: webpackConfig.output.publicPath,
           stats: false
@@ -39,9 +28,9 @@ require('browser-sync')
       ]
     },
     files: [
-      `${DIR}/assets/css/*.css`,
-      `${DIR}/assets/font/*`,
-      `${DIR}/assets/img/*`,
+      `${DIR}/asset/css/*.css`,
+      `${DIR}/asset/font/*`,
+      `${DIR}/asset/img/*`,
       `${DIR}/*.html`
     ],
     open: 'external'
