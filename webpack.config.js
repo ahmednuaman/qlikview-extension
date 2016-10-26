@@ -10,15 +10,18 @@ const webpack = require('webpack')
 const WebpackExtractTextPlugin = require('extract-text-webpack-plugin')
 const WebpackProgressBarPlugin = require('progress-bar-webpack-plugin')
 
+const webpackDev = (entry) => PRODUCTION ? entry : ['webpack/hot/dev-server', 'webpack-hot-middleware/client', entry]
+
 let config = {
   context: src,
   cache: true,
   entry: {
-    'script.js': './js/app.js',
+    'script.js': webpackDev('./js/app.js'),
     'styles.css': './scss/app.scss'
   },
   output: {
     filename: '[name]',
+    publicPath: '',
     path: path.resolve(CWD, 'build')
   },
   devtool: 'inline-source-map',

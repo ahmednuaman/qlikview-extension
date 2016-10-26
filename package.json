@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf build && NODE_ENV='production' concurrently 'npm test' 'npm run webpack -- -p'",
-    "browser-sync": "node ./browser-sync.js",
+    "browser-sync": "cp -R qlik/* build && node ./browser-sync.js",
     "local": "concurrently 'npm run browser-sync' 'npm run watch'",
     "start": "npm run local",
     "test": "standard",
@@ -49,5 +49,18 @@
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-hot-middleware": "^2.13.0"
+  },
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
+  },
+  "standard": {
+    "globals": [
+      "Qva"
+    ],
+    "ignore": [
+      "build"
+    ]
   }
 }

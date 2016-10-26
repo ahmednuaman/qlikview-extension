@@ -1,7 +1,7 @@
 'use strict'
 
 const CWD = process.cwd()
-const DIR = 'qlik'
+const DIR = 'build'
 
 const fs = require('fs')
 const path = require('path')
@@ -17,30 +17,32 @@ const serverPath = path.resolve(CWD, DIR)
 require('browser-sync')
   .create()
   .init({
-    baseDir: serverPath,
+    server: {
+      baseDir: serverPath,
+      middleware: [
+        (req, res, next) => {
+          const requestURL = url.parse(req.url)
+          const pathname = requestURL.pathname
+          const exists = fs.existsSync(path.join(serverPath, pathname))
+
+          if (!exists) {
+            req.url = '/index.html'
+          }
+
+          return next()
+        },
+        webpackDevMiddleware(bundler, {
+          publicPath: webpackConfig.output.publicPath,
+          stats: false
+        }),
+        webpackHotMiddleware(bundler)
+      ]
+    },
     files: [
       `${DIR}/assets/css/*.css`,
       `${DIR}/assets/font/*`,
       `${DIR}/assets/img/*`,
       `${DIR}/*.html`
     ],
-    open: 'external',
-    middleware: [
-      (req, res, next) => {
-        const requestURL = url.parse(req.url)
-        const pathname = requestURL.pathname
-        const exists = fs.existsSync(path.join(serverPath, pathname))
-
-        if (!exists) {
-          req.url = '/index.html'
-        }
-
-        return next()
-      },
-      webpackDevMiddleware(bundler, {
-        publicPath: webpackConfig.output.publicPath,
-        stats: false
-      }),
-      webpackHotMiddleware(bundler)
-    ]
+    open: 'external'
   }, () => console.log('Browsersync is running...'))
