@@ -1,6 +1,5 @@
 ((Qva, window, Element) => {
   const head = window.document.head
-  const body = window.document.body
 
   const QvaURL = (url) => url.indexOf(Qva.Remote) === 0 ? url.replace(/.+Extensions\/[^\/]+/, '') : url
 
