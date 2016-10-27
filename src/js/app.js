@@ -1,7 +1,14 @@
-Qva.AddExtension('Org/Ext', function () {
-  const urlPrefix = Qva.Remote + (Qva.Remote.indexOf('?') >= 0 ? '&' : '?') + 'public=only&name='
+import $ from 'jquery'
 
-  Qva.LoadCSS(`${urlPrefix}Extensions/Ext/asset/css/styles.css`)
+const EXT_NAME = 'Ext'
+const URL_PREFIX = Qva.Remote + (Qva.Remote.indexOf('?') >= 0 ? '&' : '?') + `public=only&name=Extensions/${EXT_NAME}/`
 
-  this.Element.innerHTML = 'Hello!'
-}, true)
+$(() => {
+  Qva.LoadCSS(`${URL_PREFIX}asset/css/app.css`)
+
+  Qv.AddExtension(EXT_NAME, function () {
+    console.log(this.Data.Rows)
+
+    this.Element.innerHTML = '<div class="some-element">hello!</div>'
+  })
+})

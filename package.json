@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf build && NODE_ENV='production' concurrently 'npm test' 'npm run webpack -- -p' && npm run copy",
     "browser-sync": "npm run copy && node ./browser-sync.js",
-    "copy": "concurrently 'cp -R qlik/* build/' 'cp definition.xml build/' 'cp icon.png build/'",
+    "copy": "cp -R qlik/* build/",
     "local": "concurrently 'npm run browser-sync' 'npm run watch'",
     "start": "npm run local",
     "test": "standard",
@@ -34,6 +34,7 @@
     "babel-preset-stage-0": "^6.16.0",
     "browser-sync": "^2.17.5",
     "concurrently": "^3.1.0",
+    "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.25.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
@@ -58,10 +59,14 @@
   },
   "standard": {
     "globals": [
+      "Qv",
       "Qva"
     ],
     "ignore": [
       "build"
     ]
+  },
+  "dependencies": {
+    "jquery": "^3.1.1"
   }
 }

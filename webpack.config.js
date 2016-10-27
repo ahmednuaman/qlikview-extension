@@ -7,6 +7,7 @@ const PRODUCTION = ENV === 'production'
 const path = require('path')
 const src = path.resolve(CWD, 'src')
 const webpack = require('webpack')
+const WebpackCopyPlugin = require('copy-webpack-plugin')
 const WebpackExtractTextPlugin = require('extract-text-webpack-plugin')
 const WebpackProgressBarPlugin = require('progress-bar-webpack-plugin')
 
@@ -15,7 +16,7 @@ let config = {
   cache: true,
   entry: {
     'script.js': './js/app.js',
-    'asset/css/styles.css': './scss/app.scss'
+    'asset/css/app.css': './scss/app.scss'
   },
   output: {
     filename: '[name]',
@@ -59,7 +60,11 @@ let config = {
     new WebpackProgressBarPlugin(),
     new WebpackExtractTextPlugin('[name]', {
       allChunks: true
-    })
+    }),
+    new WebpackCopyPlugin(['css', 'img', 'font'].map((dir) => ({
+      from: '../qlik/folder-definition.xml',
+      to: `./asset/${dir}/definition.xml`
+    })))
   ]
 }
 
