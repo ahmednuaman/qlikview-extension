@@ -4,8 +4,9 @@
   "description": "A simple boilerplate for writing Qlikview extensions in Javascript",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf build && NODE_ENV='production' concurrently 'npm test' 'npm run webpack -- -p'",
-    "browser-sync": "cp -R qlik/* build && node ./browser-sync.js",
+    "build": "rimraf build && NODE_ENV='production' concurrently 'npm test' 'npm run webpack -- -p' && npm run copy",
+    "browser-sync": "npm run copy && node ./browser-sync.js",
+    "copy": "concurrently 'cp -R qlik/* build/' 'cp definition.xml build/' 'cp icon.png build/'",
     "local": "concurrently 'npm run browser-sync' 'npm run watch'",
     "start": "npm run local",
     "test": "standard",
