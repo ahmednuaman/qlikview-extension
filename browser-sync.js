@@ -27,7 +27,7 @@ require('browser-sync')
       `${DIR}/asset/css/*.css`,
       `${DIR}/asset/font/*`,
       `${DIR}/asset/img/*`,
-      `${DIR}/*.html`
+      `${DIR}/*.html`,
       `${DIR}/*.js`
     ],
     open: 'external'
