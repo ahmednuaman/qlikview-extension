@@ -10,13 +10,11 @@ const webpack = require('webpack')
 const WebpackExtractTextPlugin = require('extract-text-webpack-plugin')
 const WebpackProgressBarPlugin = require('progress-bar-webpack-plugin')
 
-const webpackDev = (entry) => PRODUCTION ? entry : ['webpack/hot/dev-server', 'webpack-hot-middleware/client', entry]
-
 let config = {
   context: src,
   cache: true,
   entry: {
-    'script.js': webpackDev('./js/app.js'),
+    'script.js': './js/app.js',
     'asset/css/styles.css': './scss/app.scss'
   },
   output: {
@@ -57,7 +55,6 @@ let config = {
       'process.env.NODE_ENV': JSON.stringify(ENV)
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
     new WebpackProgressBarPlugin(),
     new WebpackExtractTextPlugin('[name]', {

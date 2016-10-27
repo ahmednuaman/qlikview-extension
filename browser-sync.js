@@ -7,7 +7,6 @@ const path = require('path')
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.config')
 const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
 
 const bundler = webpack(webpackConfig)
 const serverPath = path.resolve(CWD, DIR)
@@ -21,8 +20,7 @@ require('browser-sync')
         webpackDevMiddleware(bundler, {
           publicPath: webpackConfig.output.publicPath,
           stats: false
-        }),
-        webpackHotMiddleware(bundler)
+        })
       ]
     },
     files: [
@@ -30,6 +28,7 @@ require('browser-sync')
       `${DIR}/asset/font/*`,
       `${DIR}/asset/img/*`,
       `${DIR}/*.html`
+      `${DIR}/*.js`
     ],
     open: 'external'
   }, () => console.log('Browsersync is running...'))
