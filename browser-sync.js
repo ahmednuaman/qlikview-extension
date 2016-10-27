@@ -3,9 +3,7 @@
 const CWD = process.cwd()
 const DIR = 'build'
 
-const fs = require('fs')
 const path = require('path')
-const url = require('url')
 const webpack = require('webpack')
 const webpackConfig = require('./webpack.config')
 const webpackDevMiddleware = require('webpack-dev-middleware')
