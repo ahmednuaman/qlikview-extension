@@ -1,6 +1,7 @@
 import $ from 'jquery'
+import pkg from '../../package.json'
 
-const EXT_NAME = 'Ext'
+const EXT_NAME = pkg.name
 const URL_PREFIX = Qva.Remote + (Qva.Remote.indexOf('?') >= 0 ? '&' : '?') + `public=only&name=Extensions/${EXT_NAME}/`
 
 $(() => {

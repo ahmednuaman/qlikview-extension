@@ -2,11 +2,13 @@
 
 const CWD = process.cwd()
 const ENV = process.env.NODE_ENV || 'development'
+const PKG = require('./package.json')
 const PRODUCTION = ENV === 'production'
 
 const path = require('path')
 const src = path.resolve(CWD, 'src')
 const webpack = require('webpack')
+const WebpackArchivePlugin = require('webpack-archive-plugin')
 const WebpackCleanPlugin = require('clean-webpack-plugin')
 const WebpackCopyPlugin = require('copy-webpack-plugin')
 const WebpackExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -66,20 +68,33 @@ let config = {
     new WebpackCopyPlugin(['css', 'img', 'font'].map((dir) => ({
       from: '../qlik/folder-definition.xml',
       to: `./asset/${dir}/definition.xml`
-    })))
+    }))),
+    new WebpackCopyPlugin([{
+      from: '../qlik/definition.xml'
+    }])
   ]
 }
 
 if (PRODUCTION) {
-  config.plugins = config.plugins.concat([
+  config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       }
+    }),
+    new WebpackArchivePlugin({
+      format: 'zip',
+      output: PKG.name
     })
-  ])
+  )
 
   config.devtool = null
+} else {
+  config.plugins.push(
+    new WebpackCopyPlugin([{
+      from: '../qlik'
+    }])
+  )
 }
 
 module.exports = config
