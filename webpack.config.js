@@ -65,13 +65,18 @@ let config = {
     new WebpackExtractTextPlugin('[name]', {
       allChunks: true
     }),
-    new WebpackCopyPlugin(['css', 'img', 'font'].map((dir) => ({
-      from: '../qlik/folder-definition.xml',
-      to: `./asset/${dir}/definition.xml`
-    }))),
-    new WebpackCopyPlugin([{
-      from: '../qlik/definition.xml'
-    }])
+    new WebpackCopyPlugin(['css', 'img', 'font'].map((dir) =>
+      ({
+        from: '../qlik/folder-definition.xml',
+        to: `./asset/${dir}/definition.xml`
+      })
+    ).concat(
+      [{
+        from: '../qlik/definition.xml'
+      }, {
+        from: '../qlik/icon.png'
+      }]
+    ))
   ]
 }
 
